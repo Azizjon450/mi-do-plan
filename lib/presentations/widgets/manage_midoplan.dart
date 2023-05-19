@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_cub/logic/cubit/midoplan_cubit.dart';
 
-class ManageMiDoPlan extends StatelessWidget {
+class ManageMiDoPlan extends StatefulWidget {
   ManageMiDoPlan({
     super.key,
   });
 
+  @override
+  State<ManageMiDoPlan> createState() => _ManageMiDoPlanState();
+}
+
+class _ManageMiDoPlanState extends State<ManageMiDoPlan> {
   final _formKey = GlobalKey<FormState>();
+
   String _title = '';
 
   void _submit(BuildContext context) {

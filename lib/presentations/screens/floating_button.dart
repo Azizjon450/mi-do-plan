@@ -1,8 +1,7 @@
-import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 
-class FABTransition extends AnimatedWidget {
-  FABTransition({
+class FloatingAcButtonTransition extends AnimatedWidget {
+  const FloatingAcButtonTransition({
     Key? key,
     required this.animation,
     required this.child,
@@ -90,7 +89,7 @@ class _AnimatedFABState extends State<AnimatedFAB> with SingleTickerProviderStat
 
   @override
   Widget build(BuildContext context) {
-    return FABTransition(
+    return FloatingAcButtonTransition(
       animation: animation,
       child: FloatingActionButton(
         child: child,

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../presentations/widgets/manage_midoplan.dart';
-import '../../presentations/screens/animated_fab.dart'; // dark mode
+import 'floating_button.dart'; // dark mode
 import '../../logic/cubit/midoplan_cubit.dart';
 import '../widgets/midoplan_list_item.dart';
 
 class MiDoPlan extends StatelessWidget {
-  MiDoPlan({
+  const MiDoPlan({
     super.key,
     required this.isDarkMode,
     required this.toggleDarkMode,
