@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../presentations/screens/animated_fab.dart'; // dark mode
-import '../screens/sign_in_options_screen.dart'; // keyin uchirilsin
 
+import '../../presentations/widgets/manage_midoplan.dart';
+import '../../presentations/screens/animated_fab.dart'; // dark mode
 import '../../logic/cubit/midoplan_cubit.dart';
 import '../widgets/midoplan_list_item.dart';
 
 class MiDoPlan extends StatelessWidget {
-  const MiDoPlan({
+  MiDoPlan({
     super.key,
     required this.isDarkMode,
     required this.toggleDarkMode,
@@ -18,23 +18,14 @@ class MiDoPlan extends StatelessWidget {
 
   void _showModalBottomSheet(BuildContext context) {
     showModalBottomSheet(
+      isDismissible: false,
       context: context,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
-        top: Radius.circular(30),
+        top: Radius.circular(20),
       )),
-      builder: (context) => DraggableScrollableSheet(
-          initialChildSize: 0.4,
-          maxChildSize: 0.9,
-          minChildSize: 0.32,
-          expand: false,
-          builder: (context, scrollController) {
-            return SingleChildScrollView(
-              controller: scrollController,
-              child: const SignInOptionsScreen(),
-            );
-          }),
+      builder: (context) => ManageMiDoPlan(),
     );
   }
 
@@ -45,9 +36,13 @@ class MiDoPlan extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         centerTitle: true,
         title: Text('MI DO PLAN'),
-        actions: [IconButton(onPressed: () {
-          _showModalBottomSheet(context);
-        }, icon: Icon(Icons.add))],
+        actions: [
+          IconButton(
+              onPressed: () {
+                _showModalBottomSheet(context);
+              },
+              icon: Icon(Icons.add))
+        ],
       ),
       body: BlocBuilder<MidoplanCubit, MidoplanState>(
         builder: (context, state) {
@@ -69,3 +64,5 @@ class MiDoPlan extends StatelessWidget {
     );
   }
 }
+
+

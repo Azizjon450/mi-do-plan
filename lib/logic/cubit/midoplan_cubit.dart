@@ -24,4 +24,15 @@ class MidoplanCubit extends Cubit<MidoplanState> {
             isDone: false,
           ),
         ]));
+  void addMiDoPlan(String title) {
+    try {
+      final midoplan = MidoPlan(id: UniqueKey().toString(), title: title);
+      final midoplans = state.midoplans;
+      midoplans.add(midoplan);
+      emit(MiDoPlanAdded(midoplans));
+      emit(MidoplanState(midoplans));
+    } catch (e) {
+      emit(MiDoPlanError("Error occured!", state.midoplans));
+    }
+  }
 }
