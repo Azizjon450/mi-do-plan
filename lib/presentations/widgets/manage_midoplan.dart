@@ -1,26 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../data/models/midoplan.dart';
 import 'package:to_do_cub/logic/cubit/midoplan_cubit.dart';
 
-class ManageMiDoPlan extends StatefulWidget {
+class ManageMiDoPlan extends StatelessWidget {
+  final MidoPlan? midoplan;
   ManageMiDoPlan({
     super.key,
+    this.midoplan,
   });
 
-  @override
-  State<ManageMiDoPlan> createState() => _ManageMiDoPlanState();
-}
-
-class _ManageMiDoPlanState extends State<ManageMiDoPlan> {
   final _formKey = GlobalKey<FormState>();
-
   String _title = '';
 
   void _submit(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      BlocProvider.of<MidoplanCubit>(context).addMiDoPlan(_title);
+      if (midoplan == null) {
+        context.read<MidoplanCubit>().addMidoPlan(_title);
+      } else {
+        // BlocProvider.of<MidoplanCubit>(context).editMidoPlan(MidoPlan(
+        //     id: midoplan!.id, title: _title, isDone: midoplan!.isDone));
+        context.read<MidoplanCubit>().editMidoPlan(
+              MidoPlan(
+                  id: midoplan!.id, title: _title, isDone: midoplan!.isDone),
+            );
+      }
     }
   }
 
@@ -52,9 +58,9 @@ class _ManageMiDoPlanState extends State<ManageMiDoPlan> {
               ),
               BlocListener<MidoplanCubit, MidoplanState>(
                 listener: (context, state) {
-                  if (state is MiDoPlanAdded) {
+                  if (state is MidoPlanAdded || state is MidoplanEdited) {
                     Navigator.of(context).pop();
-                  } else if (state is MiDoPlanError) {
+                  } else if (state is MidoPlanError) {
                     showDialog(
                       context: context,
                       builder: (ctx) => AlertDialog(
@@ -75,6 +81,7 @@ class _ManageMiDoPlanState extends State<ManageMiDoPlan> {
                             border: OutlineInputBorder(),
                             labelText: "title",
                           ),
+                          initialValue: midoplan == null ? '' : midoplan!.title,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please, enter your task';
@@ -90,7 +97,6 @@ class _ManageMiDoPlanState extends State<ManageMiDoPlan> {
                         ),
                         ElevatedButton(
                           onPressed: () => _submit(context),
-                          child: const Text("Add note"),
                           style: ElevatedButton.styleFrom(
                               elevation: 5,
                               padding: const EdgeInsets.symmetric(vertical: 20),
@@ -98,6 +104,8 @@ class _ManageMiDoPlanState extends State<ManageMiDoPlan> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               minimumSize: Size(double.infinity, 50)),
+                          child:
+                              Text(midoplan == null ? "ADD NOTE" : "EDIT NOTE"),
                         ),
                         const SizedBox(
                           height: 20,
@@ -112,7 +120,7 @@ class _ManageMiDoPlanState extends State<ManageMiDoPlan> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
-                            minimumSize: Size(double.infinity, 50),
+                            minimumSize: const Size(double.infinity, 50),
                           ),
                         )
                       ],

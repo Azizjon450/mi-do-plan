@@ -6,8 +6,8 @@ import 'floating_button.dart'; // dark mode
 import '../../logic/cubit/midoplan_cubit.dart';
 import '../widgets/midoplan_list_item.dart';
 
-class MiDoPlan extends StatelessWidget {
-  const MiDoPlan({
+class MidoPlanScreen extends StatelessWidget {
+  const MidoPlanScreen({
     super.key,
     required this.isDarkMode,
     required this.toggleDarkMode,
@@ -16,7 +16,7 @@ class MiDoPlan extends StatelessWidget {
   final bool isDarkMode;
   final Function() toggleDarkMode;
 
-  void _showModalBottomSheet(BuildContext context) {
+  void manageshowModalBottomSheet(BuildContext context) {
     showModalBottomSheet(
       isDismissible: false,
       context: context,
@@ -39,7 +39,7 @@ class MiDoPlan extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
-                _showModalBottomSheet(context);
+                manageshowModalBottomSheet(context);
               },
               icon: Icon(Icons.add))
         ],

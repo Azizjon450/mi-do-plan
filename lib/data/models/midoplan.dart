@@ -1,7 +1,7 @@
 class MidoPlan {
   final String id;
   final String title;
-  final bool isDone;
+  bool isDone;
 
   MidoPlan({
     required this.id,

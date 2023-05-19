@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import '/data/models/midoplan.dart';
 
 part 'midoplan_state.dart';
@@ -24,15 +23,35 @@ class MidoplanCubit extends Cubit<MidoplanState> {
             isDone: false,
           ),
         ]));
-  void addMiDoPlan(String title) {
+  void addMidoPlan(String title) {
     try {
-      final midoplan = MidoPlan(id: UniqueKey().toString(), title: title);
+      final midoplanT = MidoPlan(id: UniqueKey().toString(), title: title);
       final midoplans = state.midoplans;
-      midoplans.add(midoplan);
-      emit(MiDoPlanAdded(midoplans));
+      midoplans.add(midoplanT);
+      emit(MidoPlanAdded(midoplans));
       emit(MidoplanState(midoplans));
     } catch (e) {
-      emit(MiDoPlanError("Error occured!", state.midoplans));
+      emit(MidoPlanError("Error occured!", state.midoplans));
     }
+  }
+
+  void editMidoPlan(MidoPlan midoplanT) {
+    try {
+      final midoplans = state.midoplans;
+      final index = midoplans.indexWhere((m) => m.id == midoplanT.id);
+      midoplans.add(midoplanT);
+      emit(MidoPlanAdded(midoplans));
+      emit(MidoplanState(midoplans));
+    } catch (e) {
+      emit(MidoPlanError("Error occured!", state.midoplans));
+    }
+  }
+
+  void midoplanToggle(String id) {
+    final midoplans = state.midoplans;
+    final index = midoplans.indexWhere((m) => m.id == id);
+    midoplans[index].isDone = !midoplans[index].isDone;
+    emit(MidoplanToggled(midoplans));
+    emit(MidoplanState(midoplans));
   }
 }

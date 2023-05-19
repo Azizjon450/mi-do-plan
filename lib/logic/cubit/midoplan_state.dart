@@ -13,14 +13,26 @@ class MidoplanInitial extends MidoplanState {
   const MidoplanInitial(this.midoplans) : super(midoplans);
 }
 
-class MiDoPlanAdded extends MidoplanState {
+class MidoPlanAdded extends MidoplanState {
   final List<MidoPlan> midoplans;
 
-  const MiDoPlanAdded(this.midoplans) : super(midoplans);
+  const MidoPlanAdded(this.midoplans) : super(midoplans);
 }
 
-class MiDoPlanError extends MidoplanState {
+class MidoplanEdited extends MidoplanState {
+  final List<MidoPlan> midoplans;
+
+  const MidoplanEdited(this.midoplans) : super(midoplans);
+}
+
+class MidoplanToggled extends MidoplanState {
+  final List<MidoPlan> midoplans;
+
+  const MidoplanToggled(this.midoplans) : super(midoplans);
+}
+
+class MidoPlanError extends MidoplanState {
   final String message;
   
-  const MiDoPlanError(this.message, List<MidoPlan> midoplans) :super(midoplans);
+  const MidoPlanError(this.message, List<MidoPlan> midoplans) :super(midoplans);
 }
