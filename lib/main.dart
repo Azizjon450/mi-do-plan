@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_cub/presentations/screens/midoplan_details_screen.dart';
 
-import '../logic/cubit/midoplan_cubit.dart';
+import '../logic/midoplan/midoplan_cubit.dart';
 import 'presentations/screens/midoplan_screen.dart';
 
 void main() {
@@ -30,16 +31,18 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         title: 'MI DO PLAN',
         //theme: isDarkMode ? ThemeData.dark(useMaterial3: true,) : ThemeData.light(useMaterial3: true,),
-        theme: isDarkMode ? ThemeData.dark(useMaterial3: true,) : ThemeData.light(useMaterial3: true,),
-        debugShowCheckedModeBanner: false,
-        //theme: ThemeData(
-          //colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           //useMaterial3: true,
-        //),
-        home: MidoPlanScreen(
-          isDarkMode: isDarkMode,
-          toggleDarkMode: toggleDarkMode,
         ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => MidoPlanScreen(
+                isDarkMode: isDarkMode,
+                toggleDarkMode: toggleDarkMode,
+              ),
+          '/midoplan-details': (context) => const MidoplanDetailScreen(),
+        },
       ),
     );
   }

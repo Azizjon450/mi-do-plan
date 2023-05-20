@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../presentations/widgets/manage_midoplan.dart';
 import 'floating_button.dart'; // dark mode
-import '../../logic/cubit/midoplan_cubit.dart';
+import '../../logic/midoplan/midoplan_cubit.dart';
 import '../widgets/midoplan_list_item.dart';
+import '../widgets/search_bar.dart';
 
 class MidoPlanScreen extends StatelessWidget {
   const MidoPlanScreen({
@@ -29,6 +30,10 @@ class MidoPlanScreen extends StatelessWidget {
     );
   }
 
+  void openSearchBar(BuildContext context) {
+    showSearch(context: context, delegate: CearchBar());  //Cearchbar its actually SearchBar))
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +42,10 @@ class MidoPlanScreen extends StatelessWidget {
         centerTitle: true,
         title: Text('MI DO PLAN'),
         actions: [
+          IconButton(
+            onPressed: () => openSearchBar(context),
+            icon: const Icon(Icons.search),
+          ),
           IconButton(
               onPressed: () {
                 manageshowModalBottomSheet(context);
@@ -47,9 +56,9 @@ class MidoPlanScreen extends StatelessWidget {
       body: BlocBuilder<MidoplanCubit, MidoplanState>(
         builder: (context, state) {
           return ListView.builder(
-            itemCount: state.midoplans.length,
+            itemCount: state.midoplans!.length,
             itemBuilder: (context, index) =>
-                MidoPlanListItem(midoplan: state.midoplans[index]),
+                MidoPlanListItem(midoplan: state.midoplans![index]),
           );
         },
       ),
@@ -64,5 +73,3 @@ class MidoPlanScreen extends StatelessWidget {
     );
   }
 }
-
-

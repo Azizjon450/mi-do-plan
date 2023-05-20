@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/models/midoplan.dart';
-import 'package:to_do_cub/logic/cubit/midoplan_cubit.dart';
+import 'package:to_do_cub/logic/midoplan/midoplan_cubit.dart';
 
 class ManageMiDoPlan extends StatelessWidget {
   final MidoPlan? midoplan;
@@ -23,8 +23,8 @@ class ManageMiDoPlan extends StatelessWidget {
         // BlocProvider.of<MidoplanCubit>(context).editMidoPlan(MidoPlan(
         //     id: midoplan!.id, title: _title, isDone: midoplan!.isDone));
         context.read<MidoplanCubit>().editMidoPlan(
-              MidoPlan(
-                  id: midoplan!.id, title: _title, isDone: midoplan!.isDone),
+              midoplan!.id,
+              _title,
             );
       }
     }
