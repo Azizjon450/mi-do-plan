@@ -7,7 +7,7 @@ import '../../logic/midoplan/midoplan_cubit.dart';
 import '../widgets/midoplan_list_item.dart';
 import '../widgets/search_bar.dart';
 
-class MidoPlanScreen extends StatelessWidget {
+class MidoPlanScreen extends StatefulWidget {
   const MidoPlanScreen({
     super.key,
     required this.isDarkMode,
@@ -16,6 +16,22 @@ class MidoPlanScreen extends StatelessWidget {
 
   final bool isDarkMode;
   final Function() toggleDarkMode;
+
+  @override
+  State<MidoPlanScreen> createState() => _MidoPlanScreenState();
+}
+
+class _MidoPlanScreenState extends State<MidoPlanScreen> {
+  var _init = false;
+
+  @override
+  void didChangeDependencies() {
+    if(!_init) {
+      context.read<MidoplanCubit>().getMidoplans();
+    }
+    _init = true;
+    super.didChangeDependencies();
+  }
 
   void manageshowModalBottomSheet(BuildContext context) {
     showModalBottomSheet(
@@ -63,10 +79,10 @@ class MidoPlanScreen extends StatelessWidget {
         },
       ),
       floatingActionButton: AnimatedFAB(
-        onPressed: toggleDarkMode,
-        foregroundColor: isDarkMode ? Colors.black : Colors.white,
-        backgroundColor: isDarkMode ? Colors.white : Colors.black,
-        child: isDarkMode
+        onPressed: widget.toggleDarkMode,
+        foregroundColor: widget.isDarkMode ? Colors.black : Colors.white,
+        backgroundColor: widget.isDarkMode ? Colors.white : Colors.black,
+        child: widget.isDarkMode
             ? const Icon(Icons.light_mode)
             : const Icon(Icons.dark_mode),
       ),

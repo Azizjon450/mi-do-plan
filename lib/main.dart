@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_cub/logic/cubit/user_cubit.dart';
 import 'package:to_do_cub/presentations/screens/midoplan_details_screen.dart';
 
 import '../logic/midoplan/midoplan_cubit.dart';
@@ -26,8 +27,15 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MidoplanCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (ctx) => UserCubit(),
+        ),
+        BlocProvider(
+          create: (ctx) => MidoplanCubit(userCubit: ctx.read<UserCubit>()),
+        ),
+      ],
       child: MaterialApp(
         title: 'MI DO PLAN',
         //theme: isDarkMode ? ThemeData.dark(useMaterial3: true,) : ThemeData.light(useMaterial3: true,),
