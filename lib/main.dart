@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_do_cub/logic/cubit/user_cubit.dart';
-import 'package:to_do_cub/presentations/screens/midoplan_details_screen.dart';
 
+import 'logic/active_midoplan_cubits/active_midoplans_cubit.dart';
+import 'logic/user/user_cubit.dart';
+import 'presentations/screens/midoplan_details_screen.dart';
 import '../logic/midoplan/midoplan_cubit.dart';
+import 'logic/completed_midoplan_cubits/completed_midoplans_cubit.dart';
 import 'presentations/screens/midoplan_screen.dart';
 
 void main() {
@@ -35,14 +37,20 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
           create: (ctx) => MidoplanCubit(userCubit: ctx.read<UserCubit>()),
         ),
+        BlocProvider(
+          create: (ctx) => ActiveMidoplansCubit(ctx.read<MidoplanCubit>()),
+        ),
+        BlocProvider(
+          create: (ctx) => CompletedMidoplansCubit(ctx.read<MidoplanCubit>()),
+        ),
       ],
       child: MaterialApp(
         title: 'MI DO PLAN',
-        //theme: isDarkMode ? ThemeData.dark(useMaterial3: true,) : ThemeData.light(useMaterial3: true,),
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          //useMaterial3: true,
-        ),
+        theme: isDarkMode ? ThemeData.dark(useMaterial3: true,) : ThemeData.light(useMaterial3: true,),
+        // theme: ThemeData(
+        //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        //   //useMaterial3: true,
+        // ),
         initialRoute: '/',
         routes: {
           '/': (context) => MidoPlanScreen(

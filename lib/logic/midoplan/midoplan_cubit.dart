@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:to_do_cub/logic/cubit/user_cubit.dart';
+import 'package:to_do_cub/logic/user/user_cubit.dart';
 import '/data/models/midoplan.dart';
 
 part 'midoplan_state.dart';
@@ -32,17 +32,20 @@ class MidoplanCubit extends Cubit<MidoplanState> {
   void getMidoplans() {
     //should filter by userId
     final user = userCubit.currentUser;
-    final midoplans = state.midoplans!.where((midoplan) => midoplan.userId == user.id).toList();
-    emit(MidoplanState(midoplans: midoplans));
-  }      
+    final midoplans = state.midoplans!
+        .where((midoplan) => midoplan.userId == user.id)
+        .toList();
+    emit(MidoplanLoaded(midoplans));
+  }
 
   void addMidoPlan(String title) {
     final user = userCubit.currentUser;
     try {
-      final midoplan = MidoPlan(id: UniqueKey().toString(), title: title, userId: user.id);
+      final midoplan =
+          MidoPlan(id: UniqueKey().toString(), title: title, userId: user.id);
       final midoplans = [...state.midoplans!, midoplan];
       emit(MidoPlanAdded());
-      emit(MidoplanState(midoplans: midoplans));
+      emit(MidoplanLoaded(midoplans));
     } catch (e) {
       emit(MidoPlanError("Error occured!"));
     }
@@ -57,7 +60,7 @@ class MidoplanCubit extends Cubit<MidoplanState> {
         return t;
       }).toList();
       emit(MidoplanEdited());
-      emit(MidoplanState(midoplans: midoplans));
+      emit(MidoplanLoaded(midoplans));
     } catch (e) {
       emit(const MidoPlanError("Error occured!"));
     }
@@ -67,19 +70,23 @@ class MidoplanCubit extends Cubit<MidoplanState> {
     final midoplans = state.midoplans!.map((midoplan) {
       if (midoplan.id == id) {
         return MidoPlan(
-            id: id, title: midoplan.title, isDone: !midoplan.isDone, userId: midoplan.userId);
+            id: id,
+            title: midoplan.title,
+            isDone: !midoplan.isDone,
+            userId: midoplan.userId);
       }
       return midoplan;
     }).toList();
     emit(MidoplanToggled());
-    emit(MidoplanState(midoplans: midoplans));
+    emit(MidoplanLoaded(midoplans));
   }
 
   void midoplanREmove(String id) {
     final midoplans = state.midoplans;
     midoplans!.removeWhere((midoplan) => midoplan.id == id);
     emit(MidoplanDeleted());
-    emit(MidoplanState(midoplans: midoplans));
+    emit(MidoplanLoaded(midoplans));
+    ;
   }
 
   List<MidoPlan> searchMidoPlans(String title) {
