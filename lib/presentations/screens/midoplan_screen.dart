@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_cub/data/constants/tab_title_constants.dart';
 
 import '../../presentations/widgets/manage_midoplan.dart';
 import 'floating_button.dart'; // dark mode
@@ -52,39 +53,43 @@ class _MidoPlanScreenState extends State<MidoPlanScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        centerTitle: true,
-        title: Text('MI DO PLAN'),
-        actions: [
-          IconButton(
-            onPressed: () => openSearchBar(context),
-            icon: const Icon(Icons.search),
-          ),
-          IconButton(
-              onPressed: () {
-                manageshowModalBottomSheet(context);
-              },
-              icon: Icon(Icons.add))
-        ],
-      ),
-      body: BlocBuilder<MidoplanCubit, MidoplanState>(
-        builder: (context, state) {
-          return ListView.builder(
-            itemCount: state.midoplans!.length,
-            itemBuilder: (context, index) =>
-                MidoPlanListItem(midoplan: state.midoplans![index]),
-          );
-        },
-      ),
-      floatingActionButton: AnimatedFAB(
-        onPressed: widget.toggleDarkMode,
-        foregroundColor: widget.isDarkMode ? Colors.black : Colors.white,
-        backgroundColor: widget.isDarkMode ? Colors.white : Colors.black,
-        child: widget.isDarkMode
-            ? const Icon(Icons.light_mode)
-            : const Icon(Icons.dark_mode),
+    return DefaultTabController(
+      length: TabTitlesConstants.tabs.length,
+      animationDuration: Duration(seconds: 2),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          centerTitle: true,
+          title: Text('MI DO PLAN'),
+          actions: [
+            IconButton(
+              onPressed: () => openSearchBar(context),
+              icon: const Icon(Icons.search),
+            ),
+            IconButton(
+                onPressed: () {
+                  manageshowModalBottomSheet(context);
+                },
+                icon: Icon(Icons.add))
+          ],
+        ),
+        body: BlocBuilder<MidoplanCubit, MidoplanState>(
+          builder: (context, state) {
+            return ListView.builder(
+              itemCount: state.midoplans!.length,
+              itemBuilder: (context, index) =>
+                  MidoPlanListItem(midoplan: state.midoplans![index]),
+            );
+          },
+        ),
+        floatingActionButton: AnimatedFAB(
+          onPressed: widget.toggleDarkMode,
+          foregroundColor: widget.isDarkMode ? Colors.black : Colors.white,
+          backgroundColor: widget.isDarkMode ? Colors.white : Colors.black,
+          child: widget.isDarkMode
+              ? const Icon(Icons.light_mode)
+              : const Icon(Icons.dark_mode),
+        ),
       ),
     );
   }

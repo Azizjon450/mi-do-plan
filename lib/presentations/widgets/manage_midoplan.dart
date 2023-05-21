@@ -3,27 +3,33 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/models/midoplan.dart';
 import 'package:to_do_cub/logic/midoplan/midoplan_cubit.dart';
 
-class ManageMiDoPlan extends StatelessWidget {
+class ManageMiDoPlan extends StatefulWidget {
   final MidoPlan? midoplan;
   ManageMiDoPlan({
     super.key,
     this.midoplan,
   });
 
+  @override
+  State<ManageMiDoPlan> createState() => _ManageMiDoPlanState();
+}
+
+class _ManageMiDoPlanState extends State<ManageMiDoPlan> {
   final _formKey = GlobalKey<FormState>();
+
   String _title = '';
 
   void _submit(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      if (midoplan == null) {
+      if (widget.midoplan == null) {
         context.read<MidoplanCubit>().addMidoPlan(_title);
       } else {
         // BlocProvider.of<MidoplanCubit>(context).editMidoPlan(MidoPlan(
         //     id: midoplan!.id, title: _title, isDone: midoplan!.isDone));
         context.read<MidoplanCubit>().editMidoPlan(
-              midoplan!.id,
+              widget.midoplan!.id,
               _title,
             );
       }
@@ -81,7 +87,7 @@ class ManageMiDoPlan extends StatelessWidget {
                             border: OutlineInputBorder(),
                             labelText: "title",
                           ),
-                          initialValue: midoplan == null ? '' : midoplan!.title,
+                          initialValue: widget.midoplan == null ? '' : widget.midoplan!.title,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please, enter your task';
@@ -105,7 +111,7 @@ class ManageMiDoPlan extends StatelessWidget {
                               ),
                               minimumSize: Size(double.infinity, 50)),
                           child:
-                              Text(midoplan == null ? "ADD NOTE" : "EDIT NOTE"),
+                              Text(widget.midoplan == null ? "ADD NOTE" : "EDIT NOTE"),
                         ),
                         const SizedBox(
                           height: 20,
