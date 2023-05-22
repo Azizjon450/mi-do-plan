@@ -5,4 +5,3 @@ abstract class ActiveMidoplansEvent {}
 
 class LoadActiveMidoplansEvent extends ActiveMidoplansEvent {}
 
-class LoadCompletedMidoplansEvent extends ActiveMidoplansEvent {}

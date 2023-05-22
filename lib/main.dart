@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_cub/logic/blocs/active_midoplan/active_midoplans_bloc.dart';
+import 'package:to_do_cub/logic/blocs/completed/completed_midoplans_bloc.dart';
 import 'logic/blocs/midoplan/midoplan_bloc.dart';
 import 'logic/blocs/user/user_bloc.dart';
-import 'logic/cubits/active_midoplan_cubits/active_midoplans_cubit.dart';
-import 'logic/cubits/completed_midoplan_cubits/completed_midoplans_cubit.dart';
-import 'logic/cubits/midoplan/midoplan_cubit.dart';
-import 'logic/cubits/user/user_cubit.dart';
 
 import 'presentations/screens/midoplan_details_screen.dart';
 import 'presentations/screens/midoplan_screen.dart';
@@ -54,6 +51,9 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (ctx) => ActiveMidoplansBloc(ctx.read<MidoplanBloc>()),
+        ),
+        BlocProvider(
+          create: (ctx) => CompletedMidoplansBloc(ctx.read<MidoplanBloc>()),
         ),
       ],
       child: MaterialApp(

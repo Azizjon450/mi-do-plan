@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_cub/logic/blocs/active_midoplan/active_midoplans_bloc.dart';
-import 'package:to_do_cub/logic/blocs/completed_midoplan/completed_midoplans_bloc.dart';
+import 'package:to_do_cub/logic/blocs/completed/completed_midoplans_bloc.dart';
 import 'package:to_do_cub/logic/blocs/midoplan/midoplan_bloc.dart';
 
 import '../../presentations/widgets/manage_midoplan.dart';
@@ -33,8 +33,7 @@ class _MidoPlanScreenState extends State<MidoPlanScreen> {
       context.read<MidoplanBloc>().add(LoadMidoplanEvent());
       // context.read<MidoplanCubit>().getMidoplans();
       context.read<ActiveMidoplansBloc>().add(LoadActiveMidoplansEvent());
-      //context.read<ActiveMidoplansBloc>().add(LoadCompletedMidoplansEvent());
-      //context.read<CompletedMidoplansBloc>().getCompletedMidoplans();
+      context.read<CompletedMidoplansBloc>().add(LoadCompletedMidoplansEvent());
     }
     _init = true;
     super.didChangeDependencies();
@@ -89,6 +88,7 @@ class _MidoPlanScreenState extends State<MidoPlanScreen> {
         body: BlocListener<MidoplanBloc, MidoplanState>(
           listener: (context, state) {
             context.read<ActiveMidoplansBloc>().add(LoadActiveMidoplansEvent());
+            context.read<CompletedMidoplansBloc>().add(LoadCompletedMidoplansEvent());
           },
           child: TabBarView(
             children: [
