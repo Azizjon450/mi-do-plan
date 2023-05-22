@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_cub/logic/blocs/midoplan/midoplan_bloc.dart';
 import 'package:to_do_cub/logic/cubits/active_midoplan_cubits/active_midoplans_cubit.dart';
 import 'package:to_do_cub/logic/cubits/completed_midoplan_cubits/completed_midoplans_cubit.dart';
-import 'package:to_do_cub/logic/cubits/midoplan/midoplan_cubit.dart';
 
 import '../../presentations/widgets/manage_midoplan.dart';
 import 'floating_button.dart'; // dark mode
@@ -30,9 +30,11 @@ class _MidoPlanScreenState extends State<MidoPlanScreen> {
   @override
   void didChangeDependencies() {
     if (!_init) {
-      context.read<MidoplanCubit>().getMidoplans();
-      context.read<ActiveMidoplansCubit>().getActiveMidoplans();
-      context.read<CompletedMidoplansCubit>().getCompletedMidoplans();
+      // context.read<MidoplanCubit>().getMidoplans();
+      // context.read<ActiveMidoplansCubit>().getActiveMidoplans();
+      // context.read<CompletedMidoplansCubit>().getCompletedMidoplans();
+      context.read<MidoplanBloc>().add(LoadMidoplanEvent());
+      
     }
     _init = true;
     super.didChangeDependencies();
@@ -86,7 +88,7 @@ class _MidoPlanScreenState extends State<MidoPlanScreen> {
         ),
         body: TabBarView(
           children: [
-            BlocBuilder<MidoplanCubit, MidoplanState>(
+            BlocBuilder<MidoplanBloc, MidoplanState>(
               builder: (context, state) {
                 if (state is MidoplanLoaded) {
                   return state.midoplans.isEmpty

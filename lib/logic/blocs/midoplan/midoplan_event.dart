@@ -24,7 +24,7 @@ class ToggleMidoplanEvent extends MidoplanEvent {
   ToggleMidoplanEvent(this.id);
 }
 
-class DeleteMidoplanEvent extends MidoplanEdited {
+class DeleteMidoplanEvent extends MidoplanEvent {
   final String id;
 
   DeleteMidoplanEvent(this.id);

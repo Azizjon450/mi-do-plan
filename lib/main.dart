@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_do_cub/logic/cubits/active_midoplan_cubits/active_midoplans_cubit.dart';
-import 'package:to_do_cub/logic/cubits/completed_midoplan_cubits/completed_midoplans_cubit.dart';
-import 'package:to_do_cub/logic/cubits/midoplan/midoplan_cubit.dart';
-import 'package:to_do_cub/logic/cubits/user/user_cubit.dart';
+import 'logic/blocs/midoplan/midoplan_bloc.dart';
+import 'logic/blocs/user/user_bloc.dart';
+import 'logic/cubits/active_midoplan_cubits/active_midoplans_cubit.dart';
+import 'logic/cubits/completed_midoplan_cubits/completed_midoplans_cubit.dart';
+import 'logic/cubits/midoplan/midoplan_cubit.dart';
+import 'logic/cubits/user/user_cubit.dart';
 
 import 'presentations/screens/midoplan_details_screen.dart';
 import 'presentations/screens/midoplan_screen.dart';
@@ -43,10 +45,22 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
           create: (ctx) => CompletedMidoplansCubit(ctx.read<MidoplanCubit>()),
         ),
+        BlocProvider(
+          create: (ctx) => UserBloc(),
+        ),
+        BlocProvider(
+          create: (ctx) => MidoplanBloc(ctx.read<UserBloc>()),
+        ),
       ],
       child: MaterialApp(
         title: 'MI DO PLAN',
-        theme: isDarkMode ? ThemeData.dark(useMaterial3: true,) : ThemeData.light(useMaterial3: true,),
+        theme: isDarkMode
+            ? ThemeData.dark(
+                useMaterial3: true,
+              )
+            : ThemeData.light(
+                useMaterial3: true,
+              ),
         // theme: ThemeData(
         //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         //   //useMaterial3: true,

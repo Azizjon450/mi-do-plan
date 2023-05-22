@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_do_cub/logic/cubits/midoplan/midoplan_cubit.dart';
+import 'package:to_do_cub/logic/blocs/midoplan/midoplan_bloc.dart';
 import '../../data/models/midoplan.dart';
 import 'manage_midoplan.dart';
 
@@ -41,11 +41,13 @@ class MidoPlanListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: IconButton(
-        onPressed: () =>
-            context.read<MidoplanCubit>().midoplanToggle(midoplan.id),
-        icon: Icon(midoplan.isDone
-            ? Icons.check_circle_rounded
-            : Icons.circle_outlined, color: midoplan.isDone ? Colors.green : Colors.grey,),
+        onPressed: () => context.read<MidoplanBloc>().add(
+              ToggleMidoplanEvent(midoplan.id),
+            ),
+        icon: Icon(
+          midoplan.isDone ? Icons.check_circle_rounded : Icons.circle_outlined,
+          color: midoplan.isDone ? Colors.green : Colors.grey,
+        ),
       ),
       title: Text(
         midoplan.title,
@@ -63,7 +65,9 @@ class MidoPlanListItem extends StatelessWidget {
             icon: Icon(Icons.edit),
           ),
           IconButton(
-            onPressed: () => context.read<MidoplanCubit>().midoplanREmove(midoplan.id),
+            onPressed: () => context
+                .read<MidoplanBloc>()
+                .add(DeleteMidoplanEvent(midoplan.id)),
             icon: Icon(Icons.delete),
           ),
         ],

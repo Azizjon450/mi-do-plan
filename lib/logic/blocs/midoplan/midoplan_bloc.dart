@@ -35,7 +35,7 @@ class MidoplanBloc extends Bloc<MidoplanEvent, MidoplanState> {
     on<AddNewMidoplanEvent>(_addMidoPlan);
     on<EditMidoplanEvent>(_editMidoPlan);
     on<ToggleMidoplanEvent>(_midoplanToggle);
-    
+    on<DeleteMidoplanEvent>(_midoplanRemove);
   }
 
   void _getMidoplans(LoadMidoplanEvent event, Emitter<MidoplanState> emit) {
