@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_cub/logic/cubits/active_midoplan_cubits/active_midoplans_cubit.dart';
+import 'package:to_do_cub/logic/cubits/completed_midoplan_cubits/completed_midoplans_cubit.dart';
+import 'package:to_do_cub/logic/cubits/midoplan/midoplan_cubit.dart';
+import 'package:to_do_cub/logic/cubits/user/user_cubit.dart';
 
-import 'logic/active_midoplan_cubits/active_midoplans_cubit.dart';
-import 'logic/user/user_cubit.dart';
 import 'presentations/screens/midoplan_details_screen.dart';
-import '../logic/midoplan/midoplan_cubit.dart';
-import 'logic/completed_midoplan_cubits/completed_midoplans_cubit.dart';
 import 'presentations/screens/midoplan_screen.dart';
 
 void main() {

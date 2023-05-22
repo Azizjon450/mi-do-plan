@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_do_cub/logic/active_midoplan_cubits/active_midoplans_cubit.dart';
-import 'package:to_do_cub/logic/completed_midoplan_cubits/completed_midoplans_cubit.dart';
+import 'package:to_do_cub/logic/cubits/active_midoplan_cubits/active_midoplans_cubit.dart';
+import 'package:to_do_cub/logic/cubits/completed_midoplan_cubits/completed_midoplans_cubit.dart';
+import 'package:to_do_cub/logic/cubits/midoplan/midoplan_cubit.dart';
 
 import '../../presentations/widgets/manage_midoplan.dart';
 import 'floating_button.dart'; // dark mode
-import '../../logic/midoplan/midoplan_cubit.dart';
 import '../widgets/midoplan_list_item.dart';
 import '../widgets/search_bar.dart';
 import '../../data/constants/tab_title_constants.dart';
