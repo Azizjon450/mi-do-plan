@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_cub/logic/blocs/active_midoplan/active_midoplans_bloc.dart';
+import 'package:to_do_cub/logic/blocs/completed_midoplan/completed_midoplans_bloc.dart';
 import 'package:to_do_cub/logic/blocs/midoplan/midoplan_bloc.dart';
-import 'package:to_do_cub/logic/cubits/active_midoplan_cubits/active_midoplans_cubit.dart';
-import 'package:to_do_cub/logic/cubits/completed_midoplan_cubits/completed_midoplans_cubit.dart';
 
 import '../../presentations/widgets/manage_midoplan.dart';
 import 'floating_button.dart'; // dark mode
@@ -30,11 +30,11 @@ class _MidoPlanScreenState extends State<MidoPlanScreen> {
   @override
   void didChangeDependencies() {
     if (!_init) {
-      // context.read<MidoplanCubit>().getMidoplans();
-      // context.read<ActiveMidoplansCubit>().getActiveMidoplans();
-      // context.read<CompletedMidoplansCubit>().getCompletedMidoplans();
       context.read<MidoplanBloc>().add(LoadMidoplanEvent());
-      
+      // context.read<MidoplanCubit>().getMidoplans();
+      context.read<ActiveMidoplansBloc>().add(LoadActiveMidoplansEvent());
+      //context.read<ActiveMidoplansBloc>().add(LoadCompletedMidoplansEvent());
+      //context.read<CompletedMidoplansBloc>().getCompletedMidoplans();
     }
     _init = true;
     super.didChangeDependencies();
@@ -86,66 +86,71 @@ class _MidoPlanScreenState extends State<MidoPlanScreen> {
                       ))
                   .toList()),
         ),
-        body: TabBarView(
-          children: [
-            BlocBuilder<MidoplanBloc, MidoplanState>(
-              builder: (context, state) {
-                if (state is MidoplanLoaded) {
-                  return state.midoplans.isEmpty
-                      ? const Center(
-                          child: Text("No have tasks yet"),
-                        )
-                      : ListView.builder(
-                          itemCount: state.midoplans.length,
-                          itemBuilder: (context, index) => MidoPlanListItem(
-                            midoplan: state.midoplans[index],
-                          ),
-                        );
-                }
-                return const Center(
-                  child: Text("No have tasks yet"),
-                );
-              },
-            ),
-            BlocBuilder<ActiveMidoplansCubit, ActiveMidoplansState>(
-              builder: (context, state) {
-                if (state is ActiveMidoplansLoaded) {
-                  return state.midoplans.isEmpty
-                      ? const Center(
-                          child: Text("No have tasks yet"),
-                        )
-                      : ListView.builder(
-                          itemCount: state.midoplans.length,
-                          itemBuilder: (context, index) => MidoPlanListItem(
-                            midoplan: state.midoplans[index],
-                          ),
-                        );
-                }
-                return const Center(
-                  child: Text("No have tasks yet"),
-                );
-              },
-            ),
-            BlocBuilder<CompletedMidoplansCubit, CompletedMidoplansState>(
-              builder: (context, state) {
-                if (state is CompletedMidoplansLoaded) {
-                  return state.midoplans.isEmpty
-                      ? const Center(
-                          child: Text("No have tasks yet"),
-                        )
-                      : ListView.builder(
-                          itemCount: state.midoplans.length,
-                          itemBuilder: (context, index) => MidoPlanListItem(
-                            midoplan: state.midoplans[index],
-                          ),
-                        );
-                }
-                return const Center(
-                  child: Text("No have tasks yet"),
-                );
-              },
-            ),
-          ],
+        body: BlocListener<MidoplanBloc, MidoplanState>(
+          listener: (context, state) {
+            context.read<ActiveMidoplansBloc>().add(LoadActiveMidoplansEvent());
+          },
+          child: TabBarView(
+            children: [
+              BlocBuilder<MidoplanBloc, MidoplanState>(
+                builder: (context, state) {
+                  if (state is MidoplanLoaded) {
+                    return state.midoplans.isEmpty
+                        ? const Center(
+                            child: Text("No have tasks yet"),
+                          )
+                        : ListView.builder(
+                            itemCount: state.midoplans.length,
+                            itemBuilder: (context, index) => MidoPlanListItem(
+                              midoplan: state.midoplans[index],
+                            ),
+                          );
+                  }
+                  return const Center(
+                    child: Text("No have tasks yet"),
+                  );
+                },
+              ),
+              BlocBuilder<ActiveMidoplansBloc, ActiveMidoplansState>(
+                builder: (context, state) {
+                  if (state is ActiveMidoplansLoaded) {
+                    return state.midoplans.isEmpty
+                        ? const Center(
+                            child: Text("No have tasks yet"),
+                          )
+                        : ListView.builder(
+                            itemCount: state.midoplans.length,
+                            itemBuilder: (context, index) => MidoPlanListItem(
+                              midoplan: state.midoplans[index],
+                            ),
+                          );
+                  }
+                  return const Center(
+                    child: Text("No have tasks yet"),
+                  );
+                },
+              ),
+              BlocBuilder<CompletedMidoplansBloc, CompletedMidoplansState>(
+                builder: (context, state) {
+                  if (state is CompletedMidoplansLoaded) {
+                    return state.midoplans.isEmpty
+                        ? const Center(
+                            child: Text("No have tasks yet"),
+                          )
+                        : ListView.builder(
+                            itemCount: state.midoplans.length,
+                            itemBuilder: (context, index) => MidoPlanListItem(
+                              midoplan: state.midoplans[index],
+                            ),
+                          );
+                  }
+                  return const Center(
+                    child: Text("No have tasks yet"),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
         floatingActionButton: AnimatedFAB(
           onPressed: widget.toggleDarkMode,

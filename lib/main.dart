@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_cub/logic/blocs/active_midoplan/active_midoplans_bloc.dart';
 import 'logic/blocs/midoplan/midoplan_bloc.dart';
 import 'logic/blocs/user/user_bloc.dart';
 import 'logic/cubits/active_midoplan_cubits/active_midoplans_cubit.dart';
@@ -33,23 +34,26 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (ctx) => UserCubit(),
-        ),
-        BlocProvider(
-          create: (ctx) => MidoplanCubit(userCubit: ctx.read<UserCubit>()),
-        ),
-        BlocProvider(
-          create: (ctx) => ActiveMidoplansCubit(ctx.read<MidoplanCubit>()),
-        ),
-        BlocProvider(
-          create: (ctx) => CompletedMidoplansCubit(ctx.read<MidoplanCubit>()),
-        ),
+        // BlocProvider(
+        //   create: (ctx) => UserCubit(),
+        // ),
+        // BlocProvider(
+        //   create: (ctx) => MidoplanCubit(userCubit: ctx.read<UserCubit>()),
+        // ),
+        // BlocProvider(
+        //   create: (ctx) => ActiveMidoplansCubit(ctx.read<MidoplanCubit>()),
+        // ),
+        // BlocProvider(
+        //   create: (ctx) => CompletedMidoplansCubit(ctx.read<MidoplanCubit>()),
+        // ),
         BlocProvider(
           create: (ctx) => UserBloc(),
         ),
         BlocProvider(
           create: (ctx) => MidoplanBloc(ctx.read<UserBloc>()),
+        ),
+        BlocProvider(
+          create: (ctx) => ActiveMidoplansBloc(ctx.read<MidoplanBloc>()),
         ),
       ],
       child: MaterialApp(

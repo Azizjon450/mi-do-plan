@@ -4,3 +4,5 @@ part of 'active_midoplans_bloc.dart';
 abstract class ActiveMidoplansEvent {}
 
 class LoadActiveMidoplansEvent extends ActiveMidoplansEvent {}
+
+class LoadCompletedMidoplansEvent extends ActiveMidoplansEvent {}

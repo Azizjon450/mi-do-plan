@@ -5,28 +5,28 @@ import 'package:meta/meta.dart';
 import 'package:to_do_cub/data/models/midoplan.dart';
 import 'package:to_do_cub/logic/blocs/midoplan/midoplan_bloc.dart';
 
-part 'active_midoplans_event.dart';
-part 'active_midoplans_state.dart';
+part 'completed_midoplans_event.dart';
+part 'completed_midoplans_state.dart';
 
-class ActiveMidoplansBloc
-    extends Bloc<ActiveMidoplansEvent, ActiveMidoplansState> {
+class CompletedMidoplansBloc
+    extends Bloc<CompletedMidoplansEvent, CompletedMidoplansState> {
   //late final StreamSubscription midoplanBlocSubscription;
   final MidoplanBloc midoplanBloc;
-  ActiveMidoplansBloc(this.midoplanBloc) : super(ActiveMidoplansInitial()) {
+  CompletedMidoplansBloc(this.midoplanBloc) : super(CompletedMidoplansInitial()) {
     // midoplanBlocSubscription = midoplanBloc.stream.listen(
     //   (event) {
-    //     add(LoadActiveMidoplansEvent());
+    //     add(LoadCompletedMidoplansEvent());
     //   },
     // );
-    on<LoadActiveMidoplansEvent>(_getActiveMidoplans);
+    on<LoadCompletedMidoplansEvent>(_getCompletedMidoplans);
   }
 
-  void _getActiveMidoplans(
-      LoadActiveMidoplansEvent event, Emitter<ActiveMidoplansState> emit) {
+  void _getCompletedMidoplans(
+      LoadCompletedMidoplansEvent event, Emitter<CompletedMidoplansState> emit) {
     final midoplans = midoplanBloc.state.midoplans!
-        .where((midoplan) => !midoplan.isDone)
+        .where((midoplan) => midoplan.isDone)
         .toList();
-    emit(ActiveMidoplansLoaded(midoplans));
+    emit(CompletedMidoplansLoaded(midoplans));
   }
 
   @override
