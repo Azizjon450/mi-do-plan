@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:to_do_cub/data/models/user.dart';
+import '../../../data/models/user.dart';
 
 part 'user_event.dart';
 part 'user_state.dart';

@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:to_do_cub/data/models/midoplan.dart';
-import 'package:to_do_cub/logic/blocs/midoplan/midoplan_bloc.dart';
+import '../../../data/models/midoplan.dart';
+import '../midoplan/midoplan_bloc.dart';
 
 part 'active_midoplans_event.dart';
 part 'active_midoplans_state.dart';

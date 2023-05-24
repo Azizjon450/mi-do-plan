@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:to_do_cub/logic/cubits/user/user_cubit.dart';
+import '../user/user_cubit.dart';
 import '/data/models/midoplan.dart';
 
 part 'midoplan_state.dart';

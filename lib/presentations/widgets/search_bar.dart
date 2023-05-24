@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_do_cub/logic/cubits/midoplan/midoplan_cubit.dart';
+import '../../logic/cubits/midoplan/midoplan_cubit.dart';
 
 class CearchBar extends SearchDelegate {
   @override

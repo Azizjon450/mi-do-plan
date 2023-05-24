@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import 'package:to_do_cub/data/models/midoplan.dart';
-import 'package:to_do_cub/logic/blocs/user/user_bloc.dart';
+import '../../../data/models/midoplan.dart';
+import '../user/user_bloc.dart';
 
 part 'midoplan_event.dart';
 part 'midoplan_state.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_do_cub/logic/blocs/active_midoplan/active_midoplans_bloc.dart';
-import 'package:to_do_cub/logic/blocs/completed/completed_midoplans_bloc.dart';
+import 'logic/blocs/active_midoplan/active_midoplans_bloc.dart';
+import 'logic/blocs/completed/completed_midoplans_bloc.dart';
 import 'logic/blocs/midoplan/midoplan_bloc.dart';
 import 'logic/blocs/user/user_bloc.dart';
 

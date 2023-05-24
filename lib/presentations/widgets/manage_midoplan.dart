@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_do_cub/logic/blocs/midoplan/midoplan_bloc.dart';
+import '../../logic/blocs/midoplan/midoplan_bloc.dart';
 import '../../data/models/midoplan.dart';
 
 class ManageMiDoPlan extends StatefulWidget {
